@@ -1,0 +1,13 @@
+/.project
+/.vs/
+**/bin/
+**/obj/
+**/artifacts/
+**/project.lock.json
+**/appsettings.Development.json
+**/.vscode/
+**/wwwroot/lib/
+**/*.xproj.user
+**/*.csproj.user
+**/aspnet_consul_config.json
+.cr/
