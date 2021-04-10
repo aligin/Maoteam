@@ -28,7 +28,7 @@ namespace Maoteam.JwtFeatures
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
-        public List<Claim> GetClaims(IdentityUser<Guid> user)
+        public List<Claim> GetClaims(IdentityUser<string> user)
         {
             var claims = new List<Claim>
             {

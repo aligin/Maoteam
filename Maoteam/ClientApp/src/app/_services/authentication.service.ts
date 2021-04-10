@@ -30,7 +30,7 @@ export class AuthenticationService {
   login(username: string, password: string) {
     return this.http
       .post<AuthResponseViewModel>(`${environment.apiUrl}/api/account/login`, {
-        email: username,
+        username,
         password,
       } as UserForAuthenticationViewModel)
       .pipe(

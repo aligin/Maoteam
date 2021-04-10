@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Maoteam.Configuration;
 using Maoteam.JwtFeatures;
-using Maoteam.Models.AdUser;
+using Maoteam.Models.LocalUsers;
+using Maoteam.Services;
 using Maoteam.ViewModels.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,9 +22,14 @@ namespace Maoteam.Controllers
         readonly UserManager<User> _userManager;
         readonly IMapper _mapper;
         readonly JwtHandler _jwtHandler;
+        readonly ADUserService _adUserService;
 
-        public AccountsController(UserManager<User> userManager, IMapper mapper, JwtHandler jwtHandler)
+        public AccountsController(UserManager<User> userManager,
+            IMapper mapper,
+            JwtHandler jwtHandler,
+            ADUserService adUserService)
         {
+            _adUserService = adUserService;
             _userManager = userManager;
             _mapper = mapper;
             _jwtHandler = jwtHandler;
@@ -32,9 +39,28 @@ namespace Maoteam.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] UserForAuthenticationViewModel userForAuthentication)
         {
-            var user = await _userManager.FindByNameAsync(userForAuthentication.Email);
-            if (user == null || !await _userManager.CheckPasswordAsync(user, userForAuthentication.Password))
+            var credentialsValid = await _adUserService.ValidateUser(userForAuthentication.Username, userForAuthentication.Password);
+            if (!credentialsValid)
                 return Unauthorized(new AuthResponseViewModel { ErrorMessage = "Invalid Authentication" });
+
+            var user = await _userManager.FindByNameAsync(userForAuthentication.Username);
+            if (user == null)
+            {
+                var adUser = await _adUserService.GetIdentity(userForAuthentication.Username, userForAuthentication.Password);
+
+                if (adUser is null)
+                    return Unauthorized(new AuthResponseViewModel { ErrorMessage = "The user is not found in the Active Directory database" });
+                
+                // The synchronizer has not syncronized yet the user.
+                // We will retrieve the information from the AD.
+                user = new User
+                {
+                    UserName = userForAuthentication.Username,
+                    Email = userForAuthentication.Username,
+                    Id = adUser.ObjectSid
+                };
+                await _userManager.CreateAsync(user, userForAuthentication.Password);
+            }
             var signingCredentials = _jwtHandler.GetSigningCredentials();
             var claims = _jwtHandler.GetClaims(user);
             var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, claims);

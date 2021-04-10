@@ -1,15 +1,12 @@
 ﻿using Maoteam.Models;
-using Maoteam.Models.AdUser;
+using Maoteam.Models.LocalUsers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Maoteam.Configuration
 {
-    public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, Guid>
+    public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

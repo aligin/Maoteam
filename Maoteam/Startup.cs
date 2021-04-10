@@ -1,13 +1,12 @@
 using Maoteam.Configuration;
+using Maoteam.HostedServices;
 using Maoteam.JwtFeatures;
 using Maoteam.Models;
-using Maoteam.Models.AdUser;
-using Maoteam.Repositories;
+using Maoteam.Models.LocalUsers;
+using Maoteam.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,8 +31,13 @@ namespace Maoteam
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<JwtHandler>();
-            services.AddTransient<ADUserRepository>();
+            services.AddScoped<ADUserService>();
+            services.AddScoped<ADAdminUserService>();
+            services.AddScoped<IUserSynchronizationService, DefaultUserSynchronizationService>();
             services.AddTransient<IADConnection, DefaultADConnection>();
+
+            services.Configure<ADConnectionOptions>(Configuration.GetSection(AppConstants.Configuration.ADConnectionSection));
+            services.AddHostedService<UserSynchronizationHostedService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("identity-users"));

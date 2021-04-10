@@ -14,13 +14,29 @@ namespace Maoteam.Configuration
             Options = options.Value;
         }
 
-        public async Task<LdapConnection> GetConnection()
+        public Task<LdapConnection> GetRootUserConnection()
+        {
+            return GetConnection(Options.User, Options.Password);
+        }
+
+        public async Task<LdapConnection> GetConnection(string username, string password)
         {
             var connection = new LdapConnection();
             connection.Connect(Options.Host, Options.Port);
-            await connection.BindAsync(LdapAuthMechanism.SIMPLE, Options.User, Options.Password);
+
+            var email = MakeEmailFromUsername(username);
+
+            await connection.BindAsync(LdapAuthMechanism.SIMPLE, email, password);
 
             return connection;
+        }
+
+        string MakeEmailFromUsername(string username)
+        {
+            if (username.Contains("@"))
+                return username;
+            else
+                return $"{username}@{Options.Domain}";
         }
     }
 }

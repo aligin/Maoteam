@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace Maoteam.Models.AdUser
+namespace Maoteam.Models.LocalUsers
 {
-    public class User: IdentityUser<Guid>
+    public class User: IdentityUser<string>
     {
-        public Guid Uid { get; set; }
-
         ///// <summary>
         ///// Пользовательский email.
         ///// </summary>

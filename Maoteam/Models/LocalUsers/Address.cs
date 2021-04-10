@@ -1,4 +1,4 @@
-﻿namespace Maoteam.Models.AdUser
+﻿namespace Maoteam.Models.LocalUsers
 {
     /// <summary>
     /// Адрес сотрудника.

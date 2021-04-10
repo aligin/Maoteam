@@ -1,5 +1,5 @@
 export interface UserForAuthenticationViewModel {
-  email: string;
+  username: string;
   password: string;
 }
 

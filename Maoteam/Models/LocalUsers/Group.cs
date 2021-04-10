@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Maoteam.Models.AdUser
+namespace Maoteam.Models.LocalUsers
 {
     public class Group
     {
