@@ -3,3 +3,48 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+
+
+.mat-form-field {
+  .mat-form-field-required-marker {
+    display: none !important;
+  }
+
+  .mat-input-element {
+    line-height: 20px;
+  }
+
+  .mat-form-field-label,
+  .mat-input-element {
+    font-size: 16px;
+  }
+
+  &:not(.mat-form-field-invalid):not(.mat-focused) {
+    .mat-input-element,
+    .mat-form-field-label {
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    .mat-form-field-underline,
+    .mat-form-field-ripple {
+      background-color: rgba(0, 0, 0, 0.87);
+    }
+  }
+
+  &.mat-focused:not(.mat-form-field-invalid) {
+    .mat-input-element,
+    .mat-form-field-label {
+      color: #1e88e5;
+    }
+
+    .mat-form-field-underline,
+    .mat-form-field-ripple {
+      background-color: #1e88e5;
+    }
+  }
+
+  & + & {
+    margin-top: 16px;
+  }
+}

@@ -1,9 +1,71 @@
-﻿mat-card {
-  max-width: 400px;
-  margin: 2em auto;
-  text-align: center;
-}
-
+﻿
 mat-form-field {
   display: block;
+}
+
+.form-login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #facfa41a;
+  background-image: url('../../assets/images/background-paws-1.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0;
+  background-size: 500px;
+
+
+  mat-card {
+    padding: 0;
+    margin: 2em auto;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+  }
+
+  mat-card-content {
+    font-family: 'Roboto', sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 24px;
+    vertical-align: middle;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+}
+
+.form-login {
+  min-width: 350px;
+  max-width: 400px;
+
+  h2 {
+    margin-bottom: 8px;
+  }
+}
+
+.mat-form-field + button {
+  margin-top: 24px;
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+
+  .logo {
+    width: 60px;
+    margin-bottom: 16px;
+  }
+
+  .text {
+    width: 120px;
+  }
 }

@@ -12,11 +12,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import {MatButtonModule} from '@angular/material/button';
 
-const material = [MatCardModule, MatFormFieldModule, MatInputModule];
+const material = [MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, UserProfileComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
