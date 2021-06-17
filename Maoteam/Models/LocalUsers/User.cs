@@ -1,21 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 
-namespace Maoteam.Models.LocalUsers
+namespace MaoTeam.Models.LocalUsers
 {
-    public class User: IdentityUser<string>
+    public class User : IdentityUser<string>
     {
-        ///// <summary>
-        ///// Пользовательский email.
-        ///// </summary>
-        //public string Email { get; set; }
-
-        ///// <summary>
-        ///// Имя аккаунта (уникальное).
-        ///// </summary>
-        //public string UserName { get; set; }
-
         /// <summary>
         /// Имя отображаемое (формируется с имени и фамилии).
         /// </summary>
@@ -23,9 +12,10 @@ namespace Maoteam.Models.LocalUsers
         {
             get
             {
-                return String.Format("{0} {1} {2}", Surname, GivenName, MiddleName);
+                return $"{Surname} {GivenName} {MiddleName}";
             }
         }
+
         /// <summary>
         /// Имя пользователя.
         /// </summary>
@@ -44,7 +34,7 @@ namespace Maoteam.Models.LocalUsers
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public DateTime? BirthDate { get; set; }
+        //public DateTimeOffset? BirthDate { get; set; }
 
         /// <summary>
         /// Адрес сотрудника.
@@ -68,15 +58,6 @@ namespace Maoteam.Models.LocalUsers
         //public Telephone WorkingTelephone { get; set; } = new Telephone();
         #endregion
 
-        /// <summary>
-        /// Должность.
-        /// </summary>
-        public string JobTitle { get; set; }
-
-        /// <summary>
-        /// Относительный путь к файлу с фотографией.
-        /// </summary>
-        public string PhotoFile { get; set; }
 
         /// <summary>
         /// Отдел.
@@ -86,17 +67,7 @@ namespace Maoteam.Models.LocalUsers
         /// <summary>
         /// Дата создания аккаунта.
         /// </summary>
-        public DateTime? CreatedAt { get; set; }
-
-        /// <summary>
-        /// Пароль пользователя.
-        /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
-        /// True - если пользователь заблокирован.
-        /// </summary>
-        public bool IsBlocked { get; set; } = false;
+        public DateTimeOffset? CreatedAt { get; set; }
 
         /// <summary>
         /// Группы безопасности, в которых участвует пользователь.

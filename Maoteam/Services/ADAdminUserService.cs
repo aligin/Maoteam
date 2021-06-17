@@ -1,20 +1,16 @@
-﻿using LdapForNet;
-using Maoteam.Configuration;
-using Maoteam.Models;
-using Maoteam.Utils;
-using System;
+﻿using MaoTeam.Configuration;
+using MaoTeam.Models;
+using MaoTeam.Utils;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace Maoteam.Services
+namespace MaoTeam.Services
 {
-    public class ADAdminUserService
+    public class AdAdminUserService
     {
-        readonly IADConnection _connection;
+        readonly IAdConnection _connection;
 
-        public ADAdminUserService(IADConnection connection)
+        public AdAdminUserService(IAdConnection connection)
         {
             _connection = connection;
         }
@@ -23,33 +19,19 @@ namespace Maoteam.Services
         {
             var users = new List<AdUser>();
 
-            using var _ldapConnection = await _connection.GetRootUserConnection();
+            using var ldapConnection = await _connection.GetRootUserConnection();
 
-            //var uri = new Uri(_connection.Options.DefaultDomain);
-            //var scheme = uri.Scheme; // == "LDAP" or "LDAPS" usually
-            //var domainHost = uri.Host;
-            //var path = uri.AbsolutePath.TrimStart('/');
+            var dn = LdapUtils.GetDnFromHostname(_connection.Options.Domain);
 
-            var dn = DnFromDomain(_connection.Options.Domain);
-
-            var entries = await _ldapConnection.SearchAsync(dn, "(&(objectCategory=person)(objectClass=user)(sAMAccountName=*)(!(cn=*O*)))");
+            var entries = await ldapConnection.SearchAsync(dn, "(&(objectCategory=person)(objectClass=user)(sAMAccountName=*))");
 
             foreach (var entry in entries)
             {
-                var user = new AdUser
-                {
-                    SamAccountName = entry.DirectoryAttributes["sAMAccountName"].GetValue<string>(),
-                    ObjectSid = LdapSidConverter.ParseFromBytes(entry.DirectoryAttributes["ObjectSID"].GetValue<byte[]>())
-                };
+                var user = UsersFactory.CreateAdUser(entry);
                 users.Add(user);
             }
 
             return users;
-        }
-
-        string DnFromDomain(string domain)
-        {
-            return string.Join(",", domain.Split(".").Select(part => $"dc={part}"));
         }
     }
 }

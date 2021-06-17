@@ -1,18 +1,18 @@
 ﻿using LdapForNet;
-using Maoteam.Configuration;
-using Maoteam.Models;
-using Maoteam.Utils;
+using MaoTeam.Configuration;
+using MaoTeam.Models;
+using MaoTeam.Utils;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Maoteam.Services
+namespace MaoTeam.Services
 {
-    public class ADUserService
+    public class AdUserService
     {
-        readonly IADConnection _connection;
+        readonly IAdConnection _connection;
 
-        public ADUserService(IADConnection connection)
+        public AdUserService(IAdConnection connection)
         {
             _connection = connection;
         }
@@ -35,16 +35,11 @@ namespace Maoteam.Services
             }
         }
 
-        string DnFromDomain(string domain)
-        {
-            return string.Join(",", domain.Split(".").Select(part => $"dc={part}"));
-        }
-
         public async Task<AdUser?> GetIdentity(string username, string password)
         {
             using var ldapConnection = await _connection.GetConnection(username, password);
 
-            var dn = DnFromDomain(_connection.Options.Domain);
+            var dn = LdapUtils.GetDnFromHostname(_connection.Options.Domain);
 
             var entries = await ldapConnection.SearchAsync(dn, $"(&(objectCategory=person)(objectClass=user)(sAMAccountName={username}))");
 
@@ -53,11 +48,7 @@ namespace Maoteam.Services
 
             var firstEntry = entries.First();
 
-            return new AdUser
-            {
-                SamAccountName = firstEntry.DirectoryAttributes["sAMAccountName"].GetValue<string>(),
-                ObjectSid = LdapSidConverter.ParseFromBytes(firstEntry.DirectoryAttributes["ObjectSID"].GetValue<byte[]>())
-            };
+            return UsersFactory.CreateAdUser(firstEntry);
         }
     }
 }

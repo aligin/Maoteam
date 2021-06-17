@@ -1,5 +1,5 @@
-﻿using Maoteam.Configuration;
-using Maoteam.Models.LocalUsers;
+﻿using MaoTeam.Configuration;
+using MaoTeam.Models.LocalUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Maoteam.Controllers
+namespace MaoTeam.Controllers
 {
     [Authorize]
     [ApiController]

@@ -3,13 +3,13 @@ using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using static LdapForNet.Native.Native;
 
-namespace Maoteam.Configuration
+namespace MaoTeam.Configuration
 {
-    public class DefaultADConnection : IADConnection
+    public class DefaultAdConnection : IAdConnection
     {
-        public ADConnectionOptions Options { get; }
+        public AdConnectionOptions Options { get; }
 
-        public DefaultADConnection(IOptions<ADConnectionOptions> options)
+        public DefaultAdConnection(IOptions<AdConnectionOptions> options)
         {
             Options = options.Value;
         }

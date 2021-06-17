@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Maoteam.ViewModels.Auth
+namespace MaoTeam.ViewModels.Auth
 {
     public class AuthResponseViewModel
     {

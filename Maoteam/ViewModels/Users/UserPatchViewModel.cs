@@ -1,4 +1,4 @@
-﻿namespace Maoteam.ViewModels.Users
+﻿namespace MaoTeam.ViewModels.Users
 {
     public class UserPatchViewModel
     {

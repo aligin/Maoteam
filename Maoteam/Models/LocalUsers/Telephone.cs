@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Maoteam.Models.LocalUsers
+namespace MaoTeam.Models.LocalUsers
 {
     public class Telephone
     {

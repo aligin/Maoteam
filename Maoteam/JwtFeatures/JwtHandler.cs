@@ -4,17 +4,16 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Maoteam.JwtFeatures
+namespace MaoTeam.JwtFeatures
 {
     public class JwtHandler
     {
         readonly IConfiguration _configuration;
         readonly IConfigurationSection _jwtSettings;
+
         public JwtHandler(IConfiguration configuration)
         {
             _configuration = configuration;

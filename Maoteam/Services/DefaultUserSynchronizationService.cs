@@ -1,6 +1,6 @@
-﻿using Maoteam.Configuration;
-using Maoteam.Models;
-using Maoteam.Models.LocalUsers;
+﻿using MaoTeam.Configuration;
+using MaoTeam.Models;
+using MaoTeam.Models.LocalUsers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -8,17 +8,17 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Maoteam.Services
+namespace MaoTeam.Services
 {
     public class DefaultUserSynchronizationService : IUserSynchronizationService
     {
         readonly UserManager<User> _userManager;
-        readonly ADAdminUserService _adAdminService;
+        readonly AdAdminUserService _adAdminService;
         readonly ApplicationDbContext _context;
         readonly ILogger<DefaultUserSynchronizationService> _log;
 
         public DefaultUserSynchronizationService(UserManager<User> userManager,
-            ADAdminUserService adAdminService,
+            AdAdminUserService adAdminService,
             ApplicationDbContext context,
             ILogger<DefaultUserSynchronizationService> log
             )
@@ -59,7 +59,13 @@ namespace Maoteam.Services
             return new User
             {
                 Id = adUser.ObjectSid,
-                UserName = adUser.SamAccountName
+                UserName = adUser.SamAccountName,
+                CreatedAt = DateTimeOffset.Now.DateTime,
+                Email = adUser.Mail,
+                EmailConfirmed = true,
+                PhoneNumber = adUser.TelephoneNumber,
+                GivenName = adUser.GivenName,
+                Surname = adUser.Sn
             };
         }
     }

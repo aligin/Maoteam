@@ -1,6 +1,6 @@
-﻿namespace Maoteam.Configuration
+﻿namespace MaoTeam.Configuration
 {
-    public class ADConnectionOptions
+    public class AdConnectionOptions
     {
         public string Host { get; set; }
 

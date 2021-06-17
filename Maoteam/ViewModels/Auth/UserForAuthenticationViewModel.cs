@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Maoteam.ViewModels.Auth
+namespace MaoTeam.ViewModels.Auth
 {
     public class UserForAuthenticationViewModel
     {
-        [Required(ErrorMessage = "Email is required.")]
+        [Required(ErrorMessage = "Username is required.")]
         public string Username { get; set; }
+
         [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
     }

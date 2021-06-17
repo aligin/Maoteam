@@ -1,11 +1,11 @@
 ﻿using LdapForNet;
 using System.Threading.Tasks;
 
-namespace Maoteam.Configuration
+namespace MaoTeam.Configuration
 {
-    public interface IADConnection
+    public interface IAdConnection
     {
-        ADConnectionOptions Options { get; }
+        AdConnectionOptions Options { get; }
         Task<LdapConnection> GetConnection(string username, string password);
         Task<LdapConnection> GetRootUserConnection();
     }

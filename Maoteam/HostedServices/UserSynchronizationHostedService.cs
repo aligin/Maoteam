@@ -1,4 +1,4 @@
-﻿using Maoteam.Services;
+﻿using MaoTeam.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Maoteam.HostedServices
+namespace MaoTeam.HostedServices
 {
     public class UserSynchronizationHostedService : BackgroundService
     {
@@ -27,7 +27,14 @@ namespace Maoteam.HostedServices
                     scope.ServiceProvider
                         .GetRequiredService<IUserSynchronizationService>();
 
-                await scopedProcessingService.Sync();
+                try
+                {
+                    await scopedProcessingService.Sync();
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, e.Message);
+                }
             }
         }
 

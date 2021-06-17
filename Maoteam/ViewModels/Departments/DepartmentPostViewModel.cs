@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Maoteam.ViewModels.Departments
+namespace MaoTeam.ViewModels.Departments
 {
     public class DepartmentPostViewModel
     {

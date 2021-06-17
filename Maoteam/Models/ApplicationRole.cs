@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Maoteam.Models
+namespace MaoTeam.Models
 {
     public class ApplicationRole : IdentityRole<string>
     {

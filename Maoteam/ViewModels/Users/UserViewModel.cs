@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Maoteam.ViewModels.Users
+namespace MaoTeam.ViewModels.Users
 {
     public class UserViewModel
     {

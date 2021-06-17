@@ -1,10 +1,10 @@
-﻿using Maoteam.Models;
-using Maoteam.Models.LocalUsers;
+﻿using MaoTeam.Models;
+using MaoTeam.Models.LocalUsers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Maoteam.Configuration
+namespace MaoTeam.Configuration
 {
     public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, string>
     {

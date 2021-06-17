@@ -1,9 +1,9 @@
-using Maoteam.Configuration;
-using Maoteam.HostedServices;
-using Maoteam.JwtFeatures;
-using Maoteam.Models;
-using Maoteam.Models.LocalUsers;
-using Maoteam.Services;
+using MaoTeam.Configuration;
+using MaoTeam.HostedServices;
+using MaoTeam.JwtFeatures;
+using MaoTeam.Models;
+using MaoTeam.Models.LocalUsers;
+using MaoTeam.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Maoteam
+namespace MaoTeam
 {
     public class Startup
     {
@@ -31,18 +31,25 @@ namespace Maoteam
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<JwtHandler>();
-            services.AddScoped<ADUserService>();
-            services.AddScoped<ADAdminUserService>();
+            services.AddScoped<AdUserService>();
+            services.AddScoped<AdAdminUserService>();
             services.AddScoped<IUserSynchronizationService, DefaultUserSynchronizationService>();
-            services.AddTransient<IADConnection, DefaultADConnection>();
-
-            services.Configure<ADConnectionOptions>(Configuration.GetSection(AppConstants.Configuration.ADConnectionSection));
+            services.AddTransient<IAdConnection, DefaultAdConnection>();
+            services.Configure<AdConnectionOptions>(Configuration.GetSection(AppConstants.Configuration.ADConnectionSection));
             services.AddHostedService<UserSynchronizationHostedService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("identity-users"));
 
-            services.AddIdentity<User, ApplicationRole>()
+            services.AddIdentity<User, ApplicationRole>(options =>
+                {
+                    options.Password.RequiredLength = 1;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredUniqueChars = 0;
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
