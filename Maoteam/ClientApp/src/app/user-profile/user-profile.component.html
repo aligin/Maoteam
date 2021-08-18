@@ -1,4 +1,188 @@
-﻿<mat-card>
-  <mat-card-content>
-  </mat-card-content>
-</mat-card>
+﻿<div class="user-profile-grid">
+  <div class="block block--summary">
+    <div class="block__header header">
+      <h2 class="header__title">Summary</h2>
+      <div class="header__line"></div>
+      <div class="icon"></div>
+    </div>
+    <div class="block__content content">
+      <div class="content-wrapper">
+        <div class="user-photo"></div>
+      </div>
+      <div class="content-wrapper">
+        <div class="content__block">
+          <div class="content__column">
+            <div class="column__item">
+              <div class="item__name">Full name:</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Login:</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Email:</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Phone:</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Department:</div>
+            </div>
+          </div>
+          <div class="content__column">
+            <div class="column__item">
+              <div class="item__name">Full asdasdname</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Login</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Emadasssdasdil</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Phodasdasdne</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Departdasdasment</div>
+            </div>
+          </div>
+        </div>
+        <div class="content__block">
+          <div class="content__column">
+            <div class="column__item">
+              <div class="item__name">Last login:</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Created at:</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Updated at:</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Failed login attempts:</div>
+            </div>
+          </div>
+          <div class="content__column">
+            <div class="column__item">
+              <div class="item__name">Full asdasdname</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Login</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Emadasssdasdil</div>
+            </div>
+            <div class="column__item">
+              <div class="item__name">Phodasdasdne</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block__header header">
+      <h2 class="header__title">Security groups</h2>
+      <div class="header__line"></div>
+      <div class="icon"></div>
+    </div>
+    <div class="block__content">
+
+    </div>
+  </div>
+  <div class="block">
+    <div class="block__header header">
+      <h2 class="header__title">Basic information</h2>
+      <div class="header__line"></div>
+      <div class="icon"></div>
+    </div>
+    <div class="block__content">
+      <form class="form" [formGroup]="managerUserInfoForm">
+        <div class="form-content">
+          <div class="form-content__title title">
+            <span class="title__name">Name</span>
+            <span class="icon title__icon"></span>
+          </div>
+          <mat-form-field class="field">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" class="field__input" />
+          </mat-form-field>
+          <mat-form-field class="field">
+            <mat-label>Surname</mat-label>
+            <input matInput formControlName="surname" class="field__input" />
+          </mat-form-field>
+          <mat-form-field class="field">
+            <mat-label>Full name</mat-label>
+            <input matInput formControlName="fullName" class="field__input" />
+          </mat-form-field>
+        </div>
+        <div class="form-content">
+          <div class="form-content__title">
+            <span class="title__name">Contacts</span>
+            <span class="icon title__icon"></span>
+          </div>
+          <mat-form-field class="field">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" class="field__input" />
+          </mat-form-field>
+          <mat-form-field class="field">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" class="field__input" />
+          </mat-form-field>
+        </div>
+        <footer class="form__footer" mat-dialog-actions>
+          <div>
+            <button
+              [disabled]="!managerUserInfoForm.valid"
+              [title]="'Save'"
+              mat-flat-button
+              color="primary"
+              class="button"
+            >
+              Save
+            </button>
+            <button mat-button [title]="" class="button">
+              Cancel
+            </button>
+          </div>
+        </footer>
+      </form>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block__header header">
+      <h2 class="header__title">Password change</h2>
+      <div class="header__line"></div>
+      <div class="icon"></div>
+    </div>
+    <div class="block__content">
+      <form class="form" [formGroup]="userPasswordForm">
+        <div class="form-content">
+          <mat-form-field class="field">
+            <mat-label>Old password</mat-label>
+            <input matInput formControlName="oldPassword" class="field__input" />
+          </mat-form-field>
+          <mat-form-field class="field">
+            <mat-label>New password</mat-label>
+            <input matInput formControlName="newPassword" class="field__input" />
+          </mat-form-field>
+        </div>
+        <footer class="form__footer" mat-dialog-actions>
+          <div>
+            <button
+              [disabled]="!userPasswordForm.valid"
+              [title]="'Save'"
+              mat-flat-button
+              color="primary"
+              class="button"
+            >
+              Save
+            </button>
+            <button mat-button [title]="" class="button">
+              Cancel
+            </button>
+          </div>
+        </footer>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+@mixin flexbox(
+  $defaultAll: false,
+  $display: flex,
+  $direction: row,
+  $alignItems: stretch,
+  $justifyContent: flex-start,
+  $wrap: null,
+  $shrink: null,
+  $grow: null,
+  $basis: null,
+) {
+  @if ($defaultAll) {
+    $direction: null;
+    $alignItems: null;
+    $justifyContent: null;
+  }
+
+  display: $display;
+  flex-direction: $direction;
+  align-items: $alignItems;
+  justify-content: $justifyContent;
+  flex-wrap: $wrap;
+  flex-shrink: $shrink;
+  flex-grow: $grow;
+  flex-basis: $basis;
+}
+
+// Grid user profile page
+@mixin column($count) {
+  @for $i from 1 through $count {
+    .block:nth-child(#{$i}) {
+      grid-area: block-#{$i};
+    }
+  }
+}
