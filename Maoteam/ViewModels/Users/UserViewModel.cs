@@ -4,16 +4,16 @@ namespace MaoTeam.ViewModels.Users
 {
     public class UserViewModel
     {
-        public Guid Uid { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Пользовательский email.
         /// </summary>
-        public string Email { get; set; }
+        public string Email { get; set; } = default!;
 
         /// <summary>
         /// Имя аккаунта (уникальное).
         /// </summary>
-        public string UserName { get; set; }
+        public string UserName { get; set; } = default!;
     }
 }

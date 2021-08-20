@@ -49,20 +49,23 @@ namespace MaoTeam.Controllers
                 var adUser = await _adUserService.GetIdentity(userForAuthentication.Username, userForAuthentication.Password);
 
                 if (adUser is null)
-                    return Unauthorized(new AuthResponseViewModel { ErrorMessage = "The user is not found in the Active Directory database" });
+                    return Unauthorized(new AuthResponseViewModel { ErrorMessage = "The user is not found in the Active Directory database." });
 
                 // The synchronizer has not syncronized yet the user.
                 // We will retrieve the information from the AD.
                 user = new User
                 {
                     UserName = userForAuthentication.Username,
-                    Email = userForAuthentication.Username,
+                    Email = userForAuthentication.Username, // TODO: заполнять email.
                     Id = adUser.ObjectSid
                 };
                 // Just before we will create a new user, we must be sure
                 // that the synchronizer didn't insert the user while we were fetching data from AD.
-                await _userManager.CreateAsync(user, userForAuthentication.Password);
-                user = await _userManager.FindByNameAsync(userForAuthentication.Username);
+                var existingUser = await _userManager.FindByNameAsync(userForAuthentication.Username);
+                if (existingUser == null)
+                    await _userManager.CreateAsync(user, userForAuthentication.Password);
+                else
+                    user = existingUser;
             }
             var signingCredentials = _jwtHandler.GetSigningCredentials();
             var claims = _jwtHandler.GetClaims(user);
