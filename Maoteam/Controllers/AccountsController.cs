@@ -78,6 +78,7 @@ namespace MaoTeam.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<UserViewModel>> GetProfile()
         {
             var userId = User.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
