@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MaoTeam.Models.LocalUsers;
+using MaoTeam.ViewModels.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,8 @@ namespace MaoTeam.Configuration.MapperProfiles
     {
         public AccountProfile()
         {
-            //CreateMap<AutomatonLibraryViewModel, GateAutomatonLibraryViewModel>()
-            //    .ForMember(dst => dst.Size, opt => opt.MapFrom(src => src.FilesSize))
-            //    .ForMember(dst => dst.EntityInfo, opt => opt.MapFrom(src => src.EntityInfo));
+            CreateMap<User, UserViewModel>()
+                .ForMember(x => x.Uid, x => x.MapFrom(x => x.Id));
         }
     }
 }

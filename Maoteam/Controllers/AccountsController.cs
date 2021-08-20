@@ -1,14 +1,19 @@
 ﻿using AutoMapper;
+using MaoTeam.Configuration.MapperProfiles;
 using MaoTeam.JwtFeatures;
 using MaoTeam.Models.LocalUsers;
 using MaoTeam.Services;
 using MaoTeam.ViewModels.Auth;
+using MaoTeam.ViewModels.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Monq.Core.MvcExtensions.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -70,6 +75,23 @@ namespace MaoTeam.Controllers
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
             return new AuthResponseViewModel { IsAuthSuccessful = true, Token = token };
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<UserViewModel>> GetProfile()
+        {
+            var userId = User.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user is null)
+                return NotFound(new ErrorResponseViewModel($"User with id: {userId} is not found."));
+
+            var mappedUser = new UserViewModel();
+
+            var model = _mapper.Map(user, mappedUser);
+
+            return model;
         }
     }
 }
