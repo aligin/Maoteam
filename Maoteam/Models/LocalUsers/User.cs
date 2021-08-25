@@ -8,13 +8,7 @@ namespace MaoTeam.Models.LocalUsers
         /// <summary>
         /// Имя отображаемое (формируется с имени и фамилии).
         /// </summary>
-        public string DisplayName
-        {
-            get
-            {
-                return $"{Surname} {GivenName} {MiddleName}";
-            }
-        }
+        public string DisplayName => $"{Surname} {GivenName} {MiddleName}";
 
         /// <summary>
         /// Имя пользователя.
