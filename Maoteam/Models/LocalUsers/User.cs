@@ -8,7 +8,7 @@ namespace MaoTeam.Models.LocalUsers
         /// <summary>
         /// Имя отображаемое (формируется с имени и фамилии).
         /// </summary>
-        public string DisplayName => $"{LastName} {FirstName} {MiddleName}";
+        public string DisplayName => $"{LastName} {FirstName}{(string.IsNullOrWhiteSpace(MiddleName) ? "" : $" {MiddleName}")}";
 
         /// <summary>
         /// Имя пользователя.
