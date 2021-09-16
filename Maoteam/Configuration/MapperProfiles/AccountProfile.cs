@@ -9,8 +9,7 @@ namespace MaoTeam.Configuration.MapperProfiles
     {
         public AccountProfile()
         {
-            CreateMap<User, UserViewModel>()
-                .ForMember(dst => dst.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id)));
+            CreateMap<User, UserViewModel>();
         }
     }
 }

@@ -93,9 +93,7 @@ namespace MaoTeam.Controllers
             if (user is null)
                 return NotFound(new ErrorResponseViewModel($"User with id: {userId} is not found."));
 
-            var mappedUser = new UserViewModel();
-
-            var model = _mapper.Map(user, mappedUser);
+            var model = _mapper.Map<UserViewModel>(user);
 
             return model;
         }

@@ -4,7 +4,7 @@ namespace MaoTeam.ViewModels.Users
 {
     public class UserViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Пользовательский email.
