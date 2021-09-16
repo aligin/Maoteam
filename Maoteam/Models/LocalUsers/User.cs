@@ -8,17 +8,17 @@ namespace MaoTeam.Models.LocalUsers
         /// <summary>
         /// Имя отображаемое (формируется с имени и фамилии).
         /// </summary>
-        public string DisplayName => $"{Surname} {GivenName} {MiddleName}";
+        public string DisplayName => $"{LastName} {FirstName} {MiddleName}";
 
         /// <summary>
         /// Имя пользователя.
         /// </summary>
-        public string GivenName { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// Фамилия пользователя.
         /// </summary>
-        public string Surname { get; set; }
+        public string LastName { get; set; }
 
         /// <summary>
         /// Отчество пользователя.
@@ -62,6 +62,22 @@ namespace MaoTeam.Models.LocalUsers
         /// Дата создания аккаунта.
         /// </summary>
         public DateTimeOffset? CreatedAt { get; set; }
+
+        /// <summary>
+        /// Дата изменения аккаунта.
+        /// </summary>
+        public DateTimeOffset? UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Количество неудачных попыток входа
+        /// </summary>
+        public int FailedLoginAppempts { get; set; }
+
+        /// <summary>
+        /// Время последнего захода в систему
+        /// </summary>
+        public DateTimeOffset? LastLogon { get; set; }
+
 
         /// <summary>
         /// Группы безопасности, в которых участвует пользователь.

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@env/environment';
 import { User } from '../models/user';
+import { UserViewModel } from '../backmodels/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -15,6 +16,6 @@ export class UserService {
   }
 
   public getProfile() {
-    return this._http.get<User[]>(this._urlPrefix);
+    return this._http.get<UserViewModel>(this._urlPrefix);
   }
 }

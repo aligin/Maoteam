@@ -1,4 +1,5 @@
-﻿using MaoTeam.Configuration;
+﻿using AutoMapper;
+using MaoTeam.Configuration;
 using MaoTeam.Models;
 using MaoTeam.Models.LocalUsers;
 using Microsoft.AspNetCore.Identity;
@@ -13,11 +14,13 @@ namespace MaoTeam.Services
     public class DefaultUserSynchronizationService : IUserSynchronizationService
     {
         readonly UserManager<User> _userManager;
+        readonly IMapper _mapper;
         readonly AdAdminUserService _adAdminService;
         readonly ApplicationDbContext _context;
         readonly ILogger<DefaultUserSynchronizationService> _log;
 
         public DefaultUserSynchronizationService(UserManager<User> userManager,
+            IMapper mapper,
             AdAdminUserService adAdminService,
             ApplicationDbContext context,
             ILogger<DefaultUserSynchronizationService> log
@@ -27,6 +30,7 @@ namespace MaoTeam.Services
             _context = context;
             _adAdminService = adAdminService;
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public async Task Sync()
@@ -56,17 +60,8 @@ namespace MaoTeam.Services
 
         User CreateUser(AdUser adUser)
         {
-            return new User
-            {
-                Id = adUser.ObjectSid,
-                UserName = adUser.SamAccountName,
-                CreatedAt = DateTimeOffset.Now.DateTime,
-                Email = adUser.Mail,
-                EmailConfirmed = true,
-                PhoneNumber = adUser.TelephoneNumber,
-                GivenName = adUser.GivenName,
-                Surname = adUser.Sn
-            };
+            var model = _mapper.Map<User>(adUser);
+            return model;
         }
     }
 }

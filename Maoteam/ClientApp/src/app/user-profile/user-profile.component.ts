@@ -33,6 +33,5 @@ export class UserProfileComponent implements OnInit {
 
   public async ngOnInit() {
     this.user = await this._userService.getProfile().toPromise();
-    console.log(this.user);
   }
 }
